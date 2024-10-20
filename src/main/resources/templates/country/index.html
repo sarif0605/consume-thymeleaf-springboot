@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/main}"
+>
+  <head>
+    <title>Country</title>
+  </head>
+  <body>
+    <!-- Content -->
+    <section class="container" layout:fragment="content">
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <h1 class="fw-bold text-center mt-3">List of Country</h1>
+        <a th:href="@{/country/create}" class="btn btn-success">Add Country</a>
+      </div>
+
+      <table
+        class="table mt-3 table-striped table-hover text-center table-bordered"
+      >
+        <thead class="table-dark">
+          <tr>
+            <th class="col-1">No</th>
+            <th class="col-2">Code</th>
+            <th class="col-3">Name</th>
+            <th class="col-2">Region</th>
+            <th class="col-4">Action</th>
+          </tr>
+        </thead>
+        <tbody th:each="country, key : ${countries}">
+          <tr>
+            <td th:text="${key.count}"></td>
+            <td th:text="${country.code}"></td>
+            <td th:text="${country.name}"></td>
+            <td th:text="${country.region.name}"></td>
+            <td class="d-flex justify-content-center align-items-center gap-3">
+              <a
+                th:href="@{/country/{id} (id=${country.id})}"
+                class="btn btn-primary"
+                >Detail</a
+              >
+              <a
+                th:href="@{/country/update/{id} (id=${country.id})}"
+                class="btn btn-warning"
+                >Update</a
+              >
+              <form
+                th:action="@{/country/{id} (id=${country.id})}"
+                th:method="DELETE"
+              >
+                <button
+                  class="btn btn-danger"
+                  type="submit"
+                  onclick="return confirm('Are you sure want to delete it?')"
+                >
+                  Delete
+                </button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </body>
+</html>
